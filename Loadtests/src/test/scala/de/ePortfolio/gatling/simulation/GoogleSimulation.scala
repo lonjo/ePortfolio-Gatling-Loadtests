@@ -27,6 +27,8 @@ class GoogleSimulation extends Simulation{
       
     // use the default HTTP protocol definition
     .protocols(HttpConf.default)
+    
+    .maxDuration(5 minutes)
 
     // verify global statistics
     .assertions(
