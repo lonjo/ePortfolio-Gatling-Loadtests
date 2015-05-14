@@ -6,8 +6,8 @@ import io.gatling.core.filter.Filter
 
 object SearchGoogle {
 
-  val searchFeeder = sitemap("search.csv").random
-
+  val searchFeeder = csv("search.csv").random
+  
   val browse = repeat(10) {
     feed(searchFeeder)
         .exec(http("${searchTerm}").get("/search?q=${searchTerm}"))
