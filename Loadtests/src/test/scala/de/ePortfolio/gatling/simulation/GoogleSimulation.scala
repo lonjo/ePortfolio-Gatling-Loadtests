@@ -13,17 +13,7 @@ class GoogleSimulation extends Simulation{
 
   setUp(
     // inject lots of users but throttle request rate
-    searchers.inject(atOnceUsers(25)))
-
-    .throttle(
-      reachRps(50) in (5 seconds),
-      holdFor(1 minutes),
-
-      // nonsense here but for more extensive test suits
-      jumpToRps(100),
-      holdFor(1 minutes),
-      jumpToRps(75),
-      holdFor(1 hour)) // till the end of the test drive
+    searchers.inject(atOnceUsers(25), rampUsers(50)over(1 minute)))
       
     // use the default HTTP protocol definition
     .protocols(HttpConf.default)
@@ -34,6 +24,6 @@ class GoogleSimulation extends Simulation{
     .assertions(
       // expect mean response time of 500 millis for 99% of the requests
       global.responseTime.percentile2.lessThan(500),
-      // expect 99% successful requests (20x,30x)
+      // expect 99% successful requests
       global.failedRequests.percent.lessThan(2))
 }
