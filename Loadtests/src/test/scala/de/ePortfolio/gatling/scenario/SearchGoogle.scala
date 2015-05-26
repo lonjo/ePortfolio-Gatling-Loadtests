@@ -6,7 +6,7 @@ import io.gatling.core.filter.Filter
 
 object SearchGoogle {
 
-  val searchFeeder = csv("search.csv").random
+  val searchFeeder = csv("search.csv").random //feeder to randomly choose a search text from a csv file
   
   val browse = repeat(10) {
     feed(searchFeeder)
